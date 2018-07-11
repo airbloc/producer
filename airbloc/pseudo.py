@@ -16,5 +16,3 @@ def cleanse(data: dict) -> dict:
        
     return { 'installedApps': installed_apps }
 
-def encrypt(data: dict) -> str:
-    return json.dumps(data)
