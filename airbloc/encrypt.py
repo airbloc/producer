@@ -1,5 +1,4 @@
-from typing import Optional, Tuple
-
+from typing import List
 from umbral import pre, config, keys, signing
 from umbral.curve import SECP256K1
 
@@ -14,11 +13,16 @@ class Encryptor:
         self.verify_key = self.signing_key.get_pubkey()
         self.signer = signing.Signer(private_key=self.private_key)
     
-    def encrypt(self, data: bytes) -> Tuple[bytes, pre.Capsule]:
+    def encrypt(self, data: bytes):
         cipher, capsule = pre.encrypt(self.public_key, data)
         return cipher, capsule
     
-    def reencrypt(self, public_key: bytes) -> pre.KFrag:
+    def decrypt(self, cipher: bytes, capsule: bytes) -> str:
+        key_capsule = pre.Capsule.from_bytes(capsule, self.private_key.params)
+        decrypted_bytes = pre.decrypt(cipher, key_capsule, self.private_key)
+        return str(decrypted_bytes, 'utf-8')
+
+    def reencrypt(self, public_key: bytes) -> List[pre.KFrag]:
         pubkey = keys.UmbralPublicKey.from_bytes(public_key)
 
         kfrags = pre.split_rekey(delegating_privkey=self.private_key,
