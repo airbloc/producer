@@ -1,0 +1,21 @@
+// Protocols used for sending data to Producer Node.
+syntax = "proto3";
+
+message Identifier {
+    string type = 1;
+    string identifier = 2;
+}
+
+message RawData {
+    string categoryOfApp = 1;
+    Identifier ownerIdentifier = 2;
+    string payload = 3;
+}
+
+message AddDataSummary {
+    uint32 insertedCount = 1;
+}
+
+service Producer {
+    rpc AddData(stream RawData) returns (AddDataSummary) {}
+}
