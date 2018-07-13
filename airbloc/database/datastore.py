@@ -17,4 +17,6 @@ class DataStore:
             'data': data
         }
         return self.bdb.create(payload)
-        
+    
+    def get(self, id: str):
+        return self.bdb.retrieveById(id)

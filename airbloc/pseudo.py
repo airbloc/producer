@@ -16,3 +16,10 @@ def cleanse(data: dict) -> dict:
        
     return { 'installedApps': installed_apps }
 
+blockchain_table = {
+    'some-data': {}
+}
+
+def broadcast_to_pre(kfrags, topic=None):
+    print('Re-Encryption key issued with Capsule {}'.format(topic))
+    pass

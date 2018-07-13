@@ -1,0 +1,5 @@
+{
+    "bigchaindb_endpoint": "https://localhost:9219",
+    "mongo_endpoint": "https://localhost:27017",
+    "ethereum_gateway": "http://localhost:8545"
+}
