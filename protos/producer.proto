@@ -1,5 +1,6 @@
 // Protocols used for sending data to Producer Node.
 syntax = "proto3";
+package airbloc.producer;
 
 message Identifier {
     string type = 1;
@@ -14,6 +15,7 @@ message RawData {
 
 message AddDataSummary {
     uint32 insertedCount = 1;
+    uint64 elapsedTime = 2;
 }
 
 service Producer {

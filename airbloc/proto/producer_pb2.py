@@ -17,9 +17,9 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='producer.proto',
-  package='',
+  package='airbloc.producer',
   syntax='proto3',
-  serialized_pb=_b('\n\x0eproducer.proto\".\n\nIdentifier\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x12\n\nidentifier\x18\x02 \x01(\t\"W\n\x07RawData\x12\x15\n\rcategoryOfApp\x18\x01 \x01(\t\x12$\n\x0fownerIdentifier\x18\x02 \x01(\x0b\x32\x0b.Identifier\x12\x0f\n\x07payload\x18\x03 \x01(\t\"\'\n\x0e\x41\x64\x64\x44\x61taSummary\x12\x15\n\rinsertedCount\x18\x01 \x01(\r24\n\x08Producer\x12(\n\x07\x41\x64\x64\x44\x61ta\x12\x08.RawData\x1a\x0f.AddDataSummary\"\x00(\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0eproducer.proto\x12\x10\x61irbloc.producer\".\n\nIdentifier\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x12\n\nidentifier\x18\x02 \x01(\t\"h\n\x07RawData\x12\x15\n\rcategoryOfApp\x18\x01 \x01(\t\x12\x35\n\x0fownerIdentifier\x18\x02 \x01(\x0b\x32\x1c.airbloc.producer.Identifier\x12\x0f\n\x07payload\x18\x03 \x01(\t\"<\n\x0e\x41\x64\x64\x44\x61taSummary\x12\x15\n\rinsertedCount\x18\x01 \x01(\r\x12\x13\n\x0b\x65lapsedTime\x18\x02 \x01(\x04\x32V\n\x08Producer\x12J\n\x07\x41\x64\x64\x44\x61ta\x12\x19.airbloc.producer.RawData\x1a .airbloc.producer.AddDataSummary\"\x00(\x01\x62\x06proto3')
 )
 
 
@@ -27,20 +27,20 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _IDENTIFIER = _descriptor.Descriptor(
   name='Identifier',
-  full_name='Identifier',
+  full_name='airbloc.producer.Identifier',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='Identifier.type', index=0,
+      name='type', full_name='airbloc.producer.Identifier.type', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='identifier', full_name='Identifier.identifier', index=1,
+      name='identifier', full_name='airbloc.producer.Identifier.identifier', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -58,34 +58,34 @@ _IDENTIFIER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18,
-  serialized_end=64,
+  serialized_start=36,
+  serialized_end=82,
 )
 
 
 _RAWDATA = _descriptor.Descriptor(
   name='RawData',
-  full_name='RawData',
+  full_name='airbloc.producer.RawData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='categoryOfApp', full_name='RawData.categoryOfApp', index=0,
+      name='categoryOfApp', full_name='airbloc.producer.RawData.categoryOfApp', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='ownerIdentifier', full_name='RawData.ownerIdentifier', index=1,
+      name='ownerIdentifier', full_name='airbloc.producer.RawData.ownerIdentifier', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='payload', full_name='RawData.payload', index=2,
+      name='payload', full_name='airbloc.producer.RawData.payload', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -103,21 +103,28 @@ _RAWDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=66,
-  serialized_end=153,
+  serialized_start=84,
+  serialized_end=188,
 )
 
 
 _ADDDATASUMMARY = _descriptor.Descriptor(
   name='AddDataSummary',
-  full_name='AddDataSummary',
+  full_name='airbloc.producer.AddDataSummary',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='insertedCount', full_name='AddDataSummary.insertedCount', index=0,
+      name='insertedCount', full_name='airbloc.producer.AddDataSummary.insertedCount', index=0,
       number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='elapsedTime', full_name='airbloc.producer.AddDataSummary.elapsedTime', index=1,
+      number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -134,8 +141,8 @@ _ADDDATASUMMARY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=155,
-  serialized_end=194,
+  serialized_start=190,
+  serialized_end=250,
 )
 
 _RAWDATA.fields_by_name['ownerIdentifier'].message_type = _IDENTIFIER
@@ -147,21 +154,21 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 Identifier = _reflection.GeneratedProtocolMessageType('Identifier', (_message.Message,), dict(
   DESCRIPTOR = _IDENTIFIER,
   __module__ = 'producer_pb2'
-  # @@protoc_insertion_point(class_scope:Identifier)
+  # @@protoc_insertion_point(class_scope:airbloc.producer.Identifier)
   ))
 _sym_db.RegisterMessage(Identifier)
 
 RawData = _reflection.GeneratedProtocolMessageType('RawData', (_message.Message,), dict(
   DESCRIPTOR = _RAWDATA,
   __module__ = 'producer_pb2'
-  # @@protoc_insertion_point(class_scope:RawData)
+  # @@protoc_insertion_point(class_scope:airbloc.producer.RawData)
   ))
 _sym_db.RegisterMessage(RawData)
 
 AddDataSummary = _reflection.GeneratedProtocolMessageType('AddDataSummary', (_message.Message,), dict(
   DESCRIPTOR = _ADDDATASUMMARY,
   __module__ = 'producer_pb2'
-  # @@protoc_insertion_point(class_scope:AddDataSummary)
+  # @@protoc_insertion_point(class_scope:airbloc.producer.AddDataSummary)
   ))
 _sym_db.RegisterMessage(AddDataSummary)
 
@@ -169,16 +176,16 @@ _sym_db.RegisterMessage(AddDataSummary)
 
 _PRODUCER = _descriptor.ServiceDescriptor(
   name='Producer',
-  full_name='Producer',
+  full_name='airbloc.producer.Producer',
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=196,
-  serialized_end=248,
+  serialized_start=252,
+  serialized_end=338,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddData',
-    full_name='Producer.AddData',
+    full_name='airbloc.producer.Producer.AddData',
     index=0,
     containing_service=None,
     input_type=_RAWDATA,

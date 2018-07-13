@@ -15,7 +15,7 @@ class ProducerStub(object):
       channel: A grpc.Channel.
     """
     self.AddData = channel.stream_unary(
-        '/Producer/AddData',
+        '/airbloc.producer.Producer/AddData',
         request_serializer=producer__pb2.RawData.SerializeToString,
         response_deserializer=producer__pb2.AddDataSummary.FromString,
         )
@@ -42,5 +42,5 @@ def add_ProducerServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'Producer', rpc_method_handlers)
+      'airbloc.producer.Producer', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
