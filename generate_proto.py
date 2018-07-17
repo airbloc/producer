@@ -9,3 +9,4 @@ protoc.main((
     '--grpc_python_out=./airbloc/proto/',
     './protos/producer.proto'
 ))
+print('Codes are generated into airbloc/proto.')
