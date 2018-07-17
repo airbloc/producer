@@ -1,4 +1,5 @@
 import json
+from airbloc.proto import Identifier
 
 def cleanse(data: dict) -> dict:
     assert isinstance(data.get('installedApps'), list)
@@ -14,7 +15,7 @@ def cleanse(data: dict) -> dict:
             'installedAt': app['installedAt']
         }) 
        
-    return { 'installedApps': installed_apps }
+    return {'installedApps': installed_apps}
 
 blockchain_table = {
     'some-data': {}
@@ -23,3 +24,7 @@ blockchain_table = {
 def broadcast_to_pre(kfrags, topic=None):
     print('Re-Encryption key issued with Capsule {}'.format(topic))
     pass
+
+def identity_match_request(identity: Identifier) -> str:
+    found_id = 'PSEUDO_{}_{}'.format(identity.type, identity.identifier)
+    return found_id
