@@ -39,7 +39,7 @@ class BigchainDBConnection:
         # not found in history, so let's query some TX
         return self.bdb.transactions.retrieve(txid)
 
-    def create(self, data, metadata={}):
+    def create(self, data, metadata=None):
         prepared_tx = self.bdb.transactions.prepare(
                 operation='CREATE',
                 signers=self.key.public_key,
