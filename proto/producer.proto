@@ -13,11 +13,11 @@ message RawData {
     string payload = 3;
 }
 
-message AddDataSummary {
-    uint32 insertedCount = 1;
-    uint64 elapsedTime = 2;
+message AddDataResult {
+    bool succeed = 1;
+    string dataId = 2;
 }
 
 service Producer {
-    rpc AddData(stream RawData) returns (AddDataSummary) {}
+    rpc AddData(stream RawData) returns (stream AddDataResult) {}
 }

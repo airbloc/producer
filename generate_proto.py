@@ -4,9 +4,9 @@ from grpc_tools import protoc
 
 protoc.main((
     '',
-    '-I./protos',
-    '--python_out=./airbloc/proto/',
-    '--grpc_python_out=./airbloc/proto/',
-    './protos/producer.proto'
+    '-I.',
+    '--python_out=./airbloc/',
+    '--grpc_python_out=./airbloc/',
+    './proto/producer.proto'
 ))
 print('Codes are generated into airbloc/proto.')

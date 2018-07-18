@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proto/producer.proto',
   package='airbloc.producer',
   syntax='proto3',
-  serialized_pb=_b('\n\x14proto/producer.proto\x12\x10\x61irbloc.producer\".\n\nIdentifier\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x12\n\nidentifier\x18\x02 \x01(\t\"h\n\x07RawData\x12\x15\n\rcategoryOfApp\x18\x01 \x01(\t\x12\x35\n\x0fownerIdentifier\x18\x02 \x01(\x0b\x32\x1c.airbloc.producer.Identifier\x12\x0f\n\x07payload\x18\x03 \x01(\t\"<\n\x0e\x41\x64\x64\x44\x61taSummary\x12\x15\n\rinsertedCount\x18\x01 \x01(\r\x12\x13\n\x0b\x65lapsedTime\x18\x02 \x01(\x04\x32V\n\x08Producer\x12J\n\x07\x41\x64\x64\x44\x61ta\x12\x19.airbloc.producer.RawData\x1a .airbloc.producer.AddDataSummary\"\x00(\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x14proto/producer.proto\x12\x10\x61irbloc.producer\".\n\nIdentifier\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x12\n\nidentifier\x18\x02 \x01(\t\"h\n\x07RawData\x12\x15\n\rcategoryOfApp\x18\x01 \x01(\t\x12\x35\n\x0fownerIdentifier\x18\x02 \x01(\x0b\x32\x1c.airbloc.producer.Identifier\x12\x0f\n\x07payload\x18\x03 \x01(\t\"0\n\rAddDataResult\x12\x0f\n\x07succeed\x18\x01 \x01(\x08\x12\x0e\n\x06\x64\x61taId\x18\x02 \x01(\t2W\n\x08Producer\x12K\n\x07\x41\x64\x64\x44\x61ta\x12\x19.airbloc.producer.RawData\x1a\x1f.airbloc.producer.AddDataResult\"\x00(\x01\x30\x01\x62\x06proto3')
 )
 
 
@@ -108,24 +108,24 @@ _RAWDATA = _descriptor.Descriptor(
 )
 
 
-_ADDDATASUMMARY = _descriptor.Descriptor(
-  name='AddDataSummary',
-  full_name='airbloc.producer.AddDataSummary',
+_ADDDATARESULT = _descriptor.Descriptor(
+  name='AddDataResult',
+  full_name='airbloc.producer.AddDataResult',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='insertedCount', full_name='airbloc.producer.AddDataSummary.insertedCount', index=0,
-      number=1, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
+      name='succeed', full_name='airbloc.producer.AddDataResult.succeed', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='elapsedTime', full_name='airbloc.producer.AddDataSummary.elapsedTime', index=1,
-      number=2, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      name='dataId', full_name='airbloc.producer.AddDataResult.dataId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
@@ -142,13 +142,13 @@ _ADDDATASUMMARY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=196,
-  serialized_end=256,
+  serialized_end=244,
 )
 
 _RAWDATA.fields_by_name['ownerIdentifier'].message_type = _IDENTIFIER
 DESCRIPTOR.message_types_by_name['Identifier'] = _IDENTIFIER
 DESCRIPTOR.message_types_by_name['RawData'] = _RAWDATA
-DESCRIPTOR.message_types_by_name['AddDataSummary'] = _ADDDATASUMMARY
+DESCRIPTOR.message_types_by_name['AddDataResult'] = _ADDDATARESULT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Identifier = _reflection.GeneratedProtocolMessageType('Identifier', (_message.Message,), dict(
@@ -165,12 +165,12 @@ RawData = _reflection.GeneratedProtocolMessageType('RawData', (_message.Message,
   ))
 _sym_db.RegisterMessage(RawData)
 
-AddDataSummary = _reflection.GeneratedProtocolMessageType('AddDataSummary', (_message.Message,), dict(
-  DESCRIPTOR = _ADDDATASUMMARY,
+AddDataResult = _reflection.GeneratedProtocolMessageType('AddDataResult', (_message.Message,), dict(
+  DESCRIPTOR = _ADDDATARESULT,
   __module__ = 'proto.producer_pb2'
-  # @@protoc_insertion_point(class_scope:airbloc.producer.AddDataSummary)
+  # @@protoc_insertion_point(class_scope:airbloc.producer.AddDataResult)
   ))
-_sym_db.RegisterMessage(AddDataSummary)
+_sym_db.RegisterMessage(AddDataResult)
 
 
 
@@ -180,8 +180,8 @@ _PRODUCER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=258,
-  serialized_end=344,
+  serialized_start=246,
+  serialized_end=333,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddData',
@@ -189,7 +189,7 @@ _PRODUCER = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_RAWDATA,
-    output_type=_ADDDATASUMMARY,
+    output_type=_ADDDATARESULT,
     options=None,
   ),
 ])

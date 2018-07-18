@@ -14,10 +14,10 @@ class ProducerStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.AddData = channel.stream_unary(
+    self.AddData = channel.stream_stream(
         '/airbloc.producer.Producer/AddData',
         request_serializer=proto_dot_producer__pb2.RawData.SerializeToString,
-        response_deserializer=proto_dot_producer__pb2.AddDataSummary.FromString,
+        response_deserializer=proto_dot_producer__pb2.AddDataResult.FromString,
         )
 
 
@@ -35,10 +35,10 @@ class ProducerServicer(object):
 
 def add_ProducerServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'AddData': grpc.stream_unary_rpc_method_handler(
+      'AddData': grpc.stream_stream_rpc_method_handler(
           servicer.AddData,
           request_deserializer=proto_dot_producer__pb2.RawData.FromString,
-          response_serializer=proto_dot_producer__pb2.AddDataSummary.SerializeToString,
+          response_serializer=proto_dot_producer__pb2.AddDataResult.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

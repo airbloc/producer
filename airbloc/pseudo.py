@@ -1,7 +1,8 @@
 import json
 from airbloc.proto import Identifier
 
-def cleanse(data: dict) -> dict:
+def cleanse(raw_data: str) -> dict:
+    data = json.loads(raw_data)
     assert isinstance(data.get('installedApps'), list)
     
     installed_apps = []
