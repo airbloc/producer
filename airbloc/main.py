@@ -2,7 +2,8 @@
 from airbloc.database.bigchaindb import BigchainDBConnection
 from airbloc.database.datastore import DataStore
 from airbloc.encrypt import Encryptor
-from airbloc.pseudo import cleanse, blockchain_table, broadcast_to_pre, identity_match_request
+from airbloc.pseudo import cleanse, blockchain_table, broadcast_to_pre
+from airbloc.config import Config
 from base64 import b64decode
 from airbloc.proto import AddDataSummary, producer_pb2_grpc
 from concurrent import futures
@@ -10,7 +11,9 @@ import grpc
 import json
 import time
 
-bdb = BigchainDBConnection()
+config = Config('config.json')
+bdb = BigchainDBConnection(bigchaindb_endpoint=config.bigchaindb_endpoint,
+                           mongo_endpoint=config.mongo_endpoint)
 datastore = DataStore(bdb)
 encryptor = Encryptor(b'SafeSafeSafeSafe', b'FundszAreSafeMan')
 
