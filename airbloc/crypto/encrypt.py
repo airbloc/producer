@@ -1,17 +1,16 @@
 from typing import List
+
 from umbral import pre, config, keys, signing
 from umbral.curve import SECP256K1
+from .keys import Key
 
 config.set_default_curve(SECP256K1)
 
 
 class Encryptor:
-    def __init__(self, encryption_key: bytes, signing_key: bytes):
-        self.private_key = keys.UmbralPrivateKey.from_bytes(encryption_key)
+    def __init__(self, key: Key):
+        self.private_key = keys.UmbralPrivateKey.from_bytes(key.to_bytes())
         self.public_key = self.private_key.get_pubkey()
-
-        self.signing_key = keys.UmbralPrivateKey.from_bytes(signing_key)
-        self.verify_key = self.signing_key.get_pubkey()
         self.signer = signing.Signer(private_key=self.private_key)
 
     def encrypt(self, data: bytes):
