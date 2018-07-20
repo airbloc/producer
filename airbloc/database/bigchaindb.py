@@ -7,8 +7,8 @@ _DEFAULT_MONGO_ENDPOINT = 'mongo://localhost:27017'
 _BURN_ADDRESS = 'BurnBurnBurnBurnBurnBurnBurnBurnBurnBurnBurn'
 
 class BigchainDBConnection:
-    ''' Implements basic CRAB (Create-Retrieve-Append-Burn) 
-        and advanced query interfaces for BigchainDB.'''
+    """ Implements basic CRAB (Create-Retrieve-Append-Burn) 
+        and advanced query interfaces for BigchainDB."""
 
     def __init__(self,
             bigchaindb_endpoint=_DEFAULT_BIGCHAINDB_ENDPOINT,

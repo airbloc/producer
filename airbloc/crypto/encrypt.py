@@ -22,12 +22,12 @@ class Encryptor:
         decrypted_bytes = pre.decrypt(cipher, key_capsule, self.private_key)
         return str(decrypted_bytes, 'utf-8')
 
-    def reencrypt(self, public_key: bytes) -> List[pre.KFrag]:
-        pubkey = keys.UmbralPublicKey.from_bytes(public_key)
+    def reencrypt(self, receiver_public_key: bytes) -> List[pre.KFrag]:
+        receiver_pubkey = keys.UmbralPublicKey.from_bytes(receiver_public_key)
 
         kfrags = pre.split_rekey(delegating_privkey=self.private_key,
                                  signer=self.signer,
-                                 receiving_pubkey=pubkey,
+                                 receiving_pubkey=receiver_pubkey,
                                  threshold=10,
                                  N=20)
         return kfrags
