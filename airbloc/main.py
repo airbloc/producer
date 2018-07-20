@@ -7,18 +7,22 @@ from concurrent import futures
 import grpc
 
 from airbloc.config import Config
+from airbloc.crypto.encrypt import Encryptor
+from airbloc.crypto.keys import Key
 from airbloc.database.bigchaindb import BigchainDBConnection
 from airbloc.database.datastore import DataStore
 from airbloc.proto import AddDataResult, producer_pb2_grpc
 from airbloc.pseudo import cleanse, blockchain_table, broadcast_to_pre
-from airbloc.crypto.encrypt import Encryptor
-from airbloc.crypto.keys import Key
 
 config = Config('config.json')
+
+private_key = Key.load_file(config.private_key_path)
+encryptor = Encryptor(private_key)
+
 bdb = BigchainDBConnection(bigchaindb_endpoint=config.bigchaindb_endpoint,
-                           mongo_endpoint=config.mongo_endpoint)
+                           mongo_endpoint=config.mongo_endpoint,
+                           credential=private_key.get_bigchaindb_keypair())
 datastore = DataStore(bdb)
-encryptor = Encryptor(Key.load_file(config.private_key_path))
 
 
 def on_access_request(requestor_pubkey: str, data_id: str):

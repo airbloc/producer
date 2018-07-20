@@ -39,6 +39,5 @@ class Key(object):
         private_key = Ed25519SigningKey(self.key, encoding='bytes')
         public_key = private_key.get_verifying_key()
 
-        return CryptoKeypair(private_key=private_key.encode(),
-                             public_key=public_key.encode())
+        return CryptoKeypair(*(key.encode('base58').decode("utf-8") for key in [private_key, public_key]))
 
