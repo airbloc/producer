@@ -12,7 +12,7 @@ from airbloc.crypto.keys import Key
 from airbloc.database.bigchaindb import BigchainDBConnection
 from airbloc.database.datastore import DataStore
 from airbloc.proto import AddDataResult, producer_pb2_grpc
-from airbloc.pseudo import cleanse, blockchain_table, broadcast_to_pre
+from airbloc.data.cleanser import Cleanser
 
 config = Config('config.json')
 
@@ -24,19 +24,43 @@ bdb = BigchainDBConnection(bigchaindb_endpoint=config.bigchaindb_endpoint,
                            credential=private_key.get_bigchaindb_keypair())
 datastore = DataStore(bdb)
 
+def schema_provider_stub(category_id):
+    # TODO: stub!
+    if category_id == 'installed-apps':
+        return {
+            'type': 'object',
+            'properties': {
+                'installedApps': {
+                    'type': 'array',
+                    'items': {
+                        'type': 'object',
+                        'additionalProperties': False,
+                        'properties': {
+                            'package': {'type': 'string'},
+                            'installedAt': {'type': 'number'},
+                        }
+                    }
+                }
+            }
+        }
 
-def on_access_request(requestor_pubkey: str, data_id: str):
+    raise KeyError('Category {} is not found in schema database'.format(category_id))
+
+cleanser = Cleanser(schema_fetcher=schema_provider_stub)
+
+
+def on_access_request(requestor_pubkey: str, data_id: str) -> object:
     """ Re-Encryption Node requests access.
     request_addr is data consumer's Ethereum address, and also public key.
     """
-    pubkey = b64decode(requestor_pubkey)
-    data = datastore.get(data_id)
-
-    if not blockchain_table['data_id'].get(requestor_pubkey):
-        return 'Failed'
-
-    kfrags = encryptor.reencrypt(pubkey)
-    broadcast_to_pre(kfrags, topic=data.capsule)
+    # pubkey = b64decode(requestor_pubkey)
+    # data = datastore.get(data_id)
+    #
+    # if not blockchain_table['data_id'].get(requestor_pubkey):
+    #     return 'Failed'
+    #
+    # kfrags = encryptor.reencrypt(pubkey)
+    # broadcast_to_pre(kfrags, topic=data.capsule)
     return 'Succeed'
 
 
@@ -47,7 +71,9 @@ class ProducerServicer(producer_pb2_grpc.ProducerServicer):
             # At the alpha version, we don't use AID and identity matcher yet.
             # so we'll make an assumption that provider will always give user ID.
             owner_id = data.ownerIdentifier.identifier
-            payload = cleanse(data.payload)
+            payload = cleanser.cleanse(category_id=data.categoryOfApp,
+                                       user_aid=owner_id,
+                                       data=json.loads(data.payload))
 
             plaintext = bytes(json.dumps(payload), 'utf-8')
             enc_payload, capsule = encryptor.encrypt(plaintext)
