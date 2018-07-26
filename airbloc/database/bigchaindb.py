@@ -88,13 +88,13 @@ class BigchainDBConnection:
     def retrieve(self, query):
         return self.mdb.assets.find(query)
     
-    def retrieveOne(self, query):
+    def retrieve_one(self, query):
         return self.mdb.assets.find_one(query)
 
-    def retrieveById(self, id):
+    def retrieve_by_id(self, id):
         return self.mdb.assets.find_one({'id': id })
 
-    def queryMetadata(self, query):
+    def query_metadata(self, query):
         return self.mdb.metadata.find(query)
 
 

@@ -26,4 +26,4 @@ class DataStore:
         return self.bdb.create(payload)
     
     def get(self, id: str):
-        return self.bdb.retrieveById(id)
+        return self.bdb.retrieve_by_id(id)

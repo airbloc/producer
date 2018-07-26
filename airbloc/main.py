@@ -1,7 +1,6 @@
 # This is a pseudo-code implementation of Airbloc Data Producer.
 import json
 import time
-from base64 import b64decode
 from concurrent import futures
 
 import grpc
@@ -9,10 +8,9 @@ import grpc
 from airbloc.config import Config
 from airbloc.crypto.encrypt import Encryptor
 from airbloc.crypto.keys import Key
-from airbloc.database.bigchaindb import BigchainDBConnection
-from airbloc.database.datastore import DataStore
-from airbloc.proto import AddDataResult, producer_pb2_grpc
 from airbloc.data.cleanser import Cleanser
+from airbloc.database import BigchainDBConnection, DataStore
+from airbloc.proto import AddDataResult, producer_pb2_grpc
 
 config = Config('config.json')
 
