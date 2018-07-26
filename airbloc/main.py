@@ -6,9 +6,8 @@ from concurrent import futures
 import grpc
 
 from airbloc.config import Config
-from airbloc.crypto.encrypt import Encryptor
-from airbloc.crypto.keys import Key
-from airbloc.data.cleanser import Cleanser
+from airbloc.crypto import Encryptor, Key
+from airbloc.data import Cleanser
 from airbloc.database import BigchainDBConnection, DataStore
 from airbloc.proto import AddDataResult, producer_pb2_grpc
 
