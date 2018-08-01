@@ -37,11 +37,11 @@ class Contracts:
         address = self._deployments[name]
 
         # search ABI
-        abi_path = os.path.join(self._abi_path, '{}.abi'.format(name))
+        abi_path = os.path.join(self._abi_path, '{}.abi.json'.format(name))
         contract_abi = _load_json_from(abi_path)
 
         contract_instance = self._w3.eth.contract(address=address,
                                                   abi=contract_abi,
                                                   ContractFactoryClass=ConciseContract)
-        self._deployments[name] = contract_instance
+        self._contracts[name] = contract_instance
         return contract_instance
