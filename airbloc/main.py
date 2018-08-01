@@ -6,9 +6,10 @@ from concurrent import futures
 import grpc
 
 from airbloc.config import Config
+from airbloc.blockchain import Contracts
 from airbloc.crypto import Encryptor, Key
 from airbloc.data import Cleanser
-from airbloc.database import BigchainDBConnection, DataStore
+from airbloc.database import BigchainDBConnection, DataStore, Metadatabase
 from airbloc.proto import AddDataResult, producer_pb2_grpc
 
 config = Config('config.json')
@@ -20,48 +21,16 @@ bdb = BigchainDBConnection(bigchaindb_endpoint=config.bigchaindb_endpoint,
                            mongo_endpoint=config.mongo_endpoint,
                            credential=private_key.get_bigchaindb_keypair())
 datastore = DataStore(bdb)
+metadatabase = Metadatabase(bdb)
 
-def schema_provider_stub(category_id):
-    # TODO: stub!
-    if category_id == 'installed-apps':
-        return {
-            'type': 'object',
-            'properties': {
-                'installedApps': {
-                    'type': 'array',
-                    'items': {
-                        'type': 'object',
-                        'additionalProperties': False,
-                        'properties': {
-                            'package': {'type': 'string'},
-                            'installedAt': {'type': 'number'},
-                        }
-                    }
-                }
-            }
-        }
-
-    raise KeyError('Category {} is not found in schema database'.format(category_id))
-
-cleanser = Cleanser(schema_fetcher=schema_provider_stub)
-
-
-def on_access_request(requestor_pubkey: str, data_id: str) -> object:
-    """ Re-Encryption Node requests access.
-    request_addr is data consumer's Ethereum address, and also public key.
-    """
-    # pubkey = b64decode(requestor_pubkey)
-    # data = datastore.get(data_id)
-    #
-    # if not blockchain_table['data_id'].get(requestor_pubkey):
-    #     return 'Failed'
-    #
-    # kfrags = encryptor.reencrypt(pubkey)
-    # broadcast_to_pre(kfrags, topic=data.capsule)
-    return 'Succeed'
+contracts = Contracts(deployment_path=config.contract_deployment_path,
+                      abi_path=config.contract_abi_path,
+                      provider_uri=config.ethereum_provider_uri)
+cleanser = Cleanser(metadatabase, contracts)
 
 
 class ProducerServicer(producer_pb2_grpc.ProducerServicer):
+
     def AddData(self, data_stream, context):
         """ Cleanse the data and store the data on datastore. """
         for data in data_stream:
