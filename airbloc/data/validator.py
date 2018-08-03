@@ -14,9 +14,9 @@ class Validator(object):
         if category_id not in self._validator_cache:
             # fetch schema from metadatabase (blockchain, BigchainDB)
             category_of_app = self._metadb.get('CategoryOfApp', category_id)
-            category = self._metadb.get('Category', category_of_app['category'])
+            schema = self._metadb.get('Schema', category_of_app['schemaId'])
 
-            validator = fastjsonschema.compile(category['schema'])
+            validator = fastjsonschema.compile(schema['schema'])
             self._validator_cache[category_id] = validator
 
         validator = self._validator_cache[category_id]
