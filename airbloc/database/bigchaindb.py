@@ -16,7 +16,7 @@ class BigchainDBConnection:
             credential=generate_keypair()):
         
         self.bdb = BigchainDB(bigchaindb_endpoint)
-        self.mdb = MongoClient(mongo_endpoint)['bigchaindb']
+        self.mdb = MongoClient(mongo_endpoint)['bigchain']
         self.key = credential
         self.transaction_history = []
 
@@ -85,14 +85,15 @@ class BigchainDBConnection:
     def transfer(self, id, transfer_to, metadata=None):
         return self.append(id, metadata, transfer_to=transfer_to)
 
-    def retrieve(self, query):
+    def retrieve_many(self, query):
         return self.mdb.assets.find(query)
     
     def retrieve_one(self, query):
-        return self.mdb.assets.find_one(query)
+        doc = self.mdb.assets.find_one(query)
+        return doc['data'] if doc else None
 
     def retrieve_by_id(self, id):
-        return self.mdb.assets.find_one({'id': id })
+        return self.retrieve_one({'id': id})
 
     def query_metadata(self, query):
         return self.mdb.metadata.find(query)
