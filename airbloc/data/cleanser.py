@@ -1,12 +1,12 @@
 from airbloc.blockchain import Contracts
 from airbloc.database import Metadatabase
-from .validator import Validator
+from .schema_registry import SchemaRegistry
 from .dauth import DAuth
 
 class Cleanser(object):
 
     def __init__(self, metadb: Metadatabase, contracts: Contracts):
-        self._validator = Validator(metadb)
+        self._validator = SchemaRegistry(metadb)
         self._dauth = DAuth(contracts)
 
     def cleanse(self, category_id: str, user_aid: str, data: object) -> object:
@@ -16,5 +16,5 @@ class Cleanser(object):
             raise AssertionError('User {} not allowed data {}'.format(user_aid, category_id))
 
         # 2. validate schema
-        validated_data = self._validator.validate_schema(category_id, data)
+        validated_data = self._validator.validate(category_id, data)
         return validated_data
