@@ -1,3 +1,4 @@
+from typing import List
 from airbloc.database.bigchaindb import BigchainDBConnection
 
 class Metadatabase:
@@ -17,5 +18,13 @@ class Metadatabase:
             'data.type': type,
             'id': id,
         }
-        data = self._bdb .retrieve_one(query)
+        data = self._bdb.retrieve_one(query)
         return data['payload'] if data else None
+
+    def query(self, query, limit=-1, page=0) -> List[dict]:
+        cursor = self._bdb.retrieve_many(query)
+
+        if limit > 0:
+            cursor = cursor.skip(limit * page).limit(limit)
+
+        return list(cursor)
