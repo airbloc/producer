@@ -94,3 +94,4 @@ Werkzeug==0.14.1
 wrapt==1.10.11
 yarl==1.2.6
 fastjsonschema==1.6
+plyvel==1.0.5
