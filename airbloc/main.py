@@ -9,7 +9,7 @@ from airbloc.config import Config
 from airbloc.blockchain import Contracts
 from airbloc.crypto import Encryptor, Key
 from airbloc.data import Cleanser
-from airbloc.database import BigchainDBConnection, DataStore, Metadatabase
+from airbloc.database import BigchainDBConnection, DataStore, Metadatabase, LevelDBConnection
 from airbloc.proto import AddDataResult, producer_pb2_grpc
 
 config = Config('config.json')
@@ -20,6 +20,8 @@ encryptor = Encryptor(private_key)
 bdb = BigchainDBConnection(bigchaindb_endpoint=config.bigchaindb_endpoint,
                            mongo_endpoint=config.mongo_endpoint,
                            credential=private_key.get_bigchaindb_keypair())
+ldb = LevelDBConnection(db_path=config.local_db_path)
+
 datastore = DataStore(bdb)
 metadatabase = Metadatabase(bdb)
 
