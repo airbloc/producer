@@ -1,0 +1,9 @@
+{
+    "bigchaindb_endpoint": "http://localhost:9984",
+    "mongo_endpoint": "mongodb://localhost:27017",
+    "ethereum_provider_uri": "https://localhost:30303",
+    "private_key_path": "private.key",
+    "contract_deployment_path": "abi/deploy.json",
+    "contract_abi_path": "abi/",
+    "local_db_path": "data/"
+}
