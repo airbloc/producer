@@ -73,7 +73,7 @@ python-dateutil==2.7.3
 python-rapidjson==0.0.11
 python-rapidjson-schema==0.1.1
 pytz==2018.5
-PyYAML==3.13
+PyYAML==5.4
 pyzmq==17.0.0
 requests==2.19.1
 rethinkdb==2.3.0.post6
